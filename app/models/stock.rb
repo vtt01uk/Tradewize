@@ -1,6 +1,6 @@
 class Stock < ActiveRecord::Base
 	
-	#Methods to find stocks bia ticker symbols
+	#Methods to find stocks via ticker symbols
 	def self.find_by_ticker(ticker_symbol)
 		where(ticker:ticker_symbol).first
 	end
