@@ -6,4 +6,22 @@ class User < ActiveRecord::Base
 	
 	has_many :user_stocks
 	has_many :stocks, through: :user_stocks
+	
+	#Adding restrictions on number of stocks being tracked
+	
+	def can_add_stock?(ticker_symbol)
+		under_stock_limit? && !stock_already_added?(ticker_symbol)
+	end
+	
+	def under_stock_limit?
+		#User is allowed 10 stocks
+		(user_stocks.count < 10)
+	end
+	
+	def stock_already_added?(ticker_symbol)
+		stock = Stock.find_by_ticker(ticker_symbol)
+		#stock wasn't already added
+		return false unless stock
+		user_stocks.where(stock_id: stock.id).exists?
+	end
 end
