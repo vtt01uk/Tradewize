@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
 	has_many :user_stocks
 	has_many :stocks, through: :user_stocks
 	
+	def full_name
+		return "#{first_name} #{last_name}".strip if (first_name || last_name)	
+		"Anonymous"
+	end
+	
 	#Adding restrictions on number of stocks being tracked
 	
 	def can_add_stock?(ticker_symbol)
