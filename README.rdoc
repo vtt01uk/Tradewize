@@ -1,6 +1,6 @@
-== TradeWize | Financial Tracker
----
-An app written in Rails, AJAX, HTML & Bootstrap 
+== TradeWize
+
+A  financial tracker app written in Rails, AJAX, HTML & Bootstrap 
 
 * Uses Devise gem
 ---
