@@ -19,6 +19,7 @@ $('#stock-lookup-form').on('ajax:after', function(event, data, status){
 
 $('#stock-lookup-form').on('ajax:error', function(event, xhr, status, error){
 	//else if stock symbol isn't found..
+	hide_spinner();
 	$('#stock-lookup-results').replaceWith(' ');
 	$('#stock-lookup-errors').replaceWith('Stock was not found.');
 	});
