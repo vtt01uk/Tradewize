@@ -7,7 +7,7 @@
 		<div class="col-md-10">
 			<%= text_field_tag :search_param, 
 					params[:search_param], 
-placeholder: 'first name, last name or email:',
+					placeholder: 'first name, last name or email:',
 					autofocus: true,
 					class: 'form-control search-box input-lg' %>
 		</div>
@@ -20,6 +20,7 @@ placeholder: 'first name, last name or email:',
 	<% end %>
 		<!--extra graphics-->
 		<%= render 'common/spinner' %>
+		
 	<% if @users %>
 	<% if @users.size > 0 %>
 		<div id="friend-lookup-results" class="well results-block" col-md-10>
@@ -30,10 +31,10 @@ placeholder: 'first name, last name or email:',
 					<td><strong>Name:</strong><%= user.full_name %></td>
 					<td><strong>Email:</strong><%= user.email %></td>
 					<td><strong>Profile:</strong><%= link_to "View Profile",user_path(user),
-																						class: 'btn btn-xs btn-success' %>
-					<% if current_user.not_friends_with?(user.id) %>
+																									class: 'btn btn-xs btn-success' %>
+						<% if current_user.not_friends_with?(user.id) %>
 						<%= link_to "Add as my friend", add_friend_path(user: current_user, friend: user),
-						class: "btn btn-xs btn-sucess" %>
+												class: "btn btn-xs btn-sucess" %>
 					<% else %>
 						<span class="label label-primary">
 							You are friends
@@ -47,9 +48,11 @@ placeholder: 'first name, last name or email:',
 		</div>
 		
 	<% else %>
+	
 		<p class="lead col-md-12">No person matches this search criteria</p>
-			<% end%>
-		<% end%>
-	<% end %>
+			<% end %>
+		<% end %>
+
+	
 	<div id="friend-lookup-errors"></div>
 </div>
