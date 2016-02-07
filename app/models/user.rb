@@ -34,11 +34,40 @@ class User < ActiveRecord::Base
 	end
 	
 	def not_friends_with?(friend_id)
+		#If friend_id doesnt show up at least once on the list of friends, 
+		#the the friend and current user are not friends
+		friendships.where(friend_id: friend_id).count < 1
 	end
 	
 	def except_current_user(users)
+		#Look at each element in users object and REJECTING the one where user id matches the id of the user
+		users.reject {|user| user.id == self.id}
 	end
 	
+	#Class-level method
 	def self.search(param)
+		return User.none if param.blank?
+		#if the param is not blank, run the param through a strip & downcase method
+		param.strip!
+		param.downcase!
+		(first_name_matches(param) + last_name_matches(param) + email_matches(param)).uniq
 	end
+	
+	def self.first_name_matches(param)
+		matches('first_name', param)
+	end
+	
+	def self.last_name_matches(param)
+		matches('last_name', param)
+	end
+	
+	def self.email_matches(param)
+		matches('email', param)
+	end
+	#Method that does the comparison
+	def self.matches(field_name, param)
+		#using wildcards
+		where("lower(#{field_name}) like ?", "%#{param}%")
+	end
+	
 end
