@@ -64,10 +64,11 @@ class User < ActiveRecord::Base
 	def self.email_matches(param)
 		matches('email', param)
 	end
+	
 	#Method that does the comparison
 	def self.matches(field_name, param)
 		#using wildcards
-		where("lower(#{field_name}) like ?", "%#{param}%")
+		where("lower(#{field_name})like ?", "%#{param}%")
 	end
 	
 end

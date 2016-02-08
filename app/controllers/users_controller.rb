@@ -13,10 +13,10 @@ class UsersController < ApplicationController
 		@users = User.search(params[:search_param])
 		if @users
 			#we dont want ourselves to show up on the search!
-			@user = current_user.except_current_user(@users)
-			render partial: "friends/lookup"
+			@users = current_user.except_current_user(@users)
+			render partial: 'friends/lookup'
 		else
-			render status: not_found, nothing: true
+			render status::not_found, nothing: true
 		end
 	end
 	
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 		if current_user.save
 			redirect_to my_friends_path, notice: "Friend was successfully added!"
 		else
-			redirect_to my_friends_path; flash[:error] = 
+			redirect_to my_friends_path, flash[:error] = 
 			"There was an error with adding user as friend"
 		end
 	end
